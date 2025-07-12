@@ -157,15 +157,18 @@ VITE_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
 graph TD
     UI[User Interface - React + TypeScript] --> Auth[Firebase Authentication]
     UI --> Voice[Voice Input - Web Speech API]
-    UI --> Ext[Chrome Extension - Auto-Fill]
-    
+    UI --> Ext[Chrome Extension - Auto-Fill + AI Assistant]
+
     Auth --> DB[Firestore Database]
     UI --> AI[AI Engine - Gemini / OpenRouter]
     AI --> Logic[Scheme Matching Logic]
     Logic --> DB
-    
+
     Ext --> FillEngine[Auto-Fill Engine - Content Scripts]
+    Ext --> ExtAI[Ask AI - Answer Queries]
     FillEngine --> Logic
+    ExtAI --> AI
+
 ```
 
 ## 🔧 Chrome Extension Demo
