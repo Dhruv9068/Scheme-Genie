@@ -427,12 +427,12 @@ git push origin feature/amazing-feature
 
 <div align="center">
 
-**Made with ❤️ by the SchemeGenie Team**
+**Made with ❤️ by the Team Samadhan**
 
 *Transforming lives through AI-powered government benefit access*
 
-[![Star this repo](https://img.shields.io/github/stars/schemegenie/schemegenie?style=social)](https://github.com/schemegenie/schemegenie)
-[![Follow us](https://img.shields.io/twitter/follow/schemegenie?style=social)](https://twitter.com/schemegenie)
+[![Star this repo](https://img.shields.io/github/stars/schemegenie/schemegenie?style=social)](https://github.com/Dhruv9068/Scheme-Genie/)
+[![Follow us](https://img.shields.io/linkedin/follow/dhruvinsights?style=social)](https://www.linkedin.com/in/dhruvinsights/)
 
 **🎯 Ready for Production • 🚀 Scalable Architecture • 🔒 Enterprise Security**
 
