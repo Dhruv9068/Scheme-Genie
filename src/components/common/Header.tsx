@@ -62,7 +62,7 @@ export const Header: React.FC = () => {
             {/* Right side */}
             <div className="flex items-center space-x-3">
               <Button
-                onClick={() => window.open('https://drive.google.com/file/d/1qLCgN9Rg37bj0SH63SfSYxw17bLzRQXQ/view', '_blank')}
+                onClick={() => window.open('https://drive.google.com/file/d/1AyjKXPKP8m8TU5uzvvYs6i8X0S6nEM9N/view?usp=sharing', '_blank')}
                 variant="outline"
                 size="sm"
                 className="hidden md:flex items-center space-x-2 border-orange-300 text-orange-600 hover:bg-orange-50 rounded-full"
@@ -96,7 +96,7 @@ export const Header: React.FC = () => {
               <nav className="space-y-2">
                 {[
                   ...navigation,
-                  {name: 'Download Extension', href: 'https://drive.google.com/file/d/1qLCgN9Rg37bj0SH63SfSYxw17bLzRQXQ/view'},
+                  {name: 'Download Extension', href: 'https://drive.google.com/file/d/1AyjKXPKP8m8TU5uzvvYs6i8X0S6nEM9N/view?usp=sharing'},
                 ].map((item) => (
                   <Link
                     key={item.name}
