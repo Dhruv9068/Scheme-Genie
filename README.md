@@ -7,8 +7,8 @@
 **Transform the way you discover and apply for government benefits worldwide**
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-SchemeGenie-orange?style=for-the-badge)](https://schemegenie.netlify.app)
-[![Chrome Extension](https://img.shields.io/badge/🔧_Chrome_Extension-Ready-blue?style=for-the-badge)](#-chrome-extension-demo)
-[![Demo Account](https://img.shields.io/badge/🎬_Demo_Account-Available-green?style=for-the-badge)](#-demo-account-for-judges)
+[![Chrome Extension](https://drive.google.com/file/d/1AyjKXPKP8m8TU5uzvvYs6i8X0S6nEM9N/view?usp=sharing)
+
 
 </div>
 
@@ -21,7 +21,7 @@
 5. **Voice Features** → Demonstrate multilingual voice interaction
 
 ### 🔧 Extension Demo:
-1. **Install Extension:** Load `/extension` folder in Chrome
+1. **Install Extension:** Load `/extension` folder in Chrome, add your own API key in Popup.js
 2. **Open Demo Form:** Visit `https://pmrf-form.netlify.app/`  or `https://nmms-form.netlify.app/`
 3. **Click Extension:** SchemeGenie icon in toolbar
 4. **Select Form:** Choose "NMMS Scholarship" (approved)
@@ -150,21 +150,20 @@ VITE_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
 
 ---
 
+### 🏗️ System Architecture – Frontend to Backend Flow
+
 ```mermaid
 graph TD
     A[User Interface\n(React + TypeScript)] --> B[Firebase Authentication]
     A --> C[Voice Input\n(Web Speech API)]
     A --> D[Chrome Extension\n(Form Auto-Fill)]
-
     B --> E[Firestore Database\n(Real-time Storage)]
     A --> F[AI Engine\n(Gemini / OpenRouter)]
     F --> G[Scheme Matching Logic\n(AI Layer)]
     G --> E
-
     D --> H[Auto-Fill Engine\n(Content Scripts)]
     H --> G
 
-```
 
 ## 🔧 Chrome Extension Demo
 
