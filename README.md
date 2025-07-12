@@ -155,15 +155,17 @@ VITE_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
 
 ```mermaid
 graph TD
-    A[User Interface\n(React + TypeScript)] --> B[Firebase Authentication]
-    A --> C[Voice Input\n(Web Speech API)]
-    A --> D[Chrome Extension\n(Form Auto-Fill)]
-    B --> E[Firestore Database\n(Real-time Storage)]
-    A --> F[AI Engine\n(Gemini / OpenRouter)]
-    F --> G[Scheme Matching Logic\n(AI Layer)]
-    G --> E
-    D --> H[Auto-Fill Engine\n(Content Scripts)]
-    H --> G
+    UI[User Interface - React + TypeScript] --> Auth[Firebase Authentication]
+    UI --> Voice[Voice Input - Web Speech API]
+    UI --> Ext[Chrome Extension - Auto-Fill]
+    
+    Auth --> DB[Firestore Database]
+    UI --> AI[AI Engine - Gemini / OpenRouter]
+    AI --> Logic[Scheme Matching Logic]
+    Logic --> DB
+    
+    Ext --> FillEngine[Auto-Fill Engine - Content Scripts]
+    FillEngine --> Logic
 ```
 
 ## 🔧 Chrome Extension Demo
