@@ -7,7 +7,8 @@
 **Transform the way you discover and apply for government benefits worldwide**
 
 [![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-SchemeGenie-orange?style=for-the-badge)](https://schemegenie.netlify.app)
-[![Chrome Extension](https://drive.google.com/file/d/1AyjKXPKP8m8TU5uzvvYs6i8X0S6nEM9N/view?usp=sharing)
+[![Chrome Extension](https://img.shields.io/badge/🔧_Chrome_Extension-Ready-blue?style=for-the-badge)](https://drive.google.com/file/d/1AyjKXPKP8m8TU5uzvvYs6i8X0S6nEM9N/view?usp=sharing)
+
 
 
 </div>
@@ -163,7 +164,7 @@ graph TD
     G --> E
     D --> H[Auto-Fill Engine\n(Content Scripts)]
     H --> G
-
+```
 
 ## 🔧 Chrome Extension Demo
 
