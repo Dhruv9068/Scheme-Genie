@@ -14,16 +14,7 @@
 
 ---
 
-## 🎭 Demo Account for Judges
-
-### Quick Login Credentials
-```
-Email: demo@schemegenie.com
-Password: demo123
-```
-
 ### 🚀 Demo Flow:
-1. **Login** → Use demo credentials above
 2. **Dashboard** → Shows 3 sample applications (1 approved, 1 pending, 1 draft)
 3. **AI Assistant** → Ask questions about schemes with voice support
 4. **Extension Demo** → Open demo forms and auto-fill with extension
@@ -31,7 +22,7 @@ Password: demo123
 
 ### 🔧 Extension Demo:
 1. **Install Extension:** Load `/extension` folder in Chrome
-2. **Open Demo Form:** Visit `http://localhost:5173/demo-form.html`
+2. **Open Demo Form:** Visit `https://pmrf-form.netlify.app/`  or `https://nmms-form.netlify.app/`
 3. **Click Extension:** SchemeGenie icon in toolbar
 4. **Select Form:** Choose "NMMS Scholarship" (approved)
 5. **Auto-Fill:** Click "✨ Fill" and watch magic happen!
@@ -159,11 +150,7 @@ VITE_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
 
 ---
 
-### **System Architecture – Frontend to Backend Flow**
-<details> <summary>Click to expand</summary>
-mermaid
-Copy
-Edit
+```mermaid
 graph TD
   User[User Interface (React + TS)] --> Auth[Firebase Auth]
   User --> Voice[Voice Input (Web Speech API)]
@@ -174,8 +161,7 @@ graph TD
   Logic --> DB
   Ext --> Form[Auto-fill Engine]
   Form --> Logic
-</details>
-
+...
 
 ## 🔧 Chrome Extension Demo
 
@@ -355,10 +341,8 @@ open https://nmms-form.netlify.app/
 ---
 
 ### **Team Structure**
-<details> <summary>Click to expand</summary>
-mermaid
-Copy
-Edit
+
+```mermaid
 graph TD
   A[SchemeGenie Team] --> B[Dhruv Chaturvedi - Full Stack + AI]
   A --> C[Garima - Frontend + UI/UX]
@@ -367,7 +351,7 @@ graph TD
   B --> B1[React, Firebase, Gemini AI + Open Router (Deepseek)]
   C --> C1[Frontend, Figma,canva, Tailwind]
   D --> D1[User Research, Wireframing, Visly AI, Excalidraw]
-</details>
+...
 
 
 
