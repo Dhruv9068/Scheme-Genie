@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchemeGenie Auto Filler</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="logo.png" alt="SchemeGenie" class="logo-img">
+                </div>
+                <div>
+                    <div class="brand-name">SchemeGenie</div>
+                    <div class="brand-subtitle">Auto Form Filler</div>
+                </div>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">Checking...</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Loading State -->
+            <div id="loadingState" class="state-container">
+                <div class="state-icon">⏳</div>
+                <div class="state-title">Loading...</div>
+                <div class="state-description">Checking SchemeGenie connection and available forms</div>
+            </div>
+
+            <!-- Not Connected State -->
+            <div id="notConnectedState" class="state-container" style="display: none;">
+                <div class="state-icon">🔗</div>
+                <div class="state-title">Connect to SchemeGenie</div>
+                <div class="state-description">
+                    Sign in to SchemeGenie to access your saved profile data and auto-fill government forms.
+                </div>
+                <button class="btn btn-primary" id="connectBtn">
+                    <span class="btn-icon">🚀</span>
+                    Connect Now
+                </button>
+            </div>
+
+            <!-- Connected State -->
+            <div id="connectedState" class="state-container" style="display: none;">
+                <!-- User Info -->
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <div>
+                        <div class="user-name" id="userName">John Demo Student</div>
+                        <div class="user-email" id="userEmail">demo@schemegenie.com</div>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="formsCount">2</div>
+                        <div class="stat-label">Forms Ready</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Complete</div>
+                    </div>
+                </div>
+
+                <!-- Page Detection -->
+                <div class="page-detection">
+                    <div class="detection-icon" id="detectionIcon">🔍</div>
+                    <div class="detection-text">
+                        <span class="detection-status" id="detectionStatus">Scanning page...</span>
+                        <span class="detection-url" id="detectionUrl"></span>
+                    </div>
+                </div>
+
+                <!-- Available Forms -->
+                <div class="forms-section">
+                    <div class="section-title">
+                        <span class="section-icon">📋</span>
+                        Available Forms
+                    </div>
+                    <div class="forms-list" id="formsList">
+                        <!-- Forms will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="actions-section">
+                    <button class="btn btn-outline btn-small" id="refreshBtn">
+                        <span class="btn-icon">🔄</span>
+                        Refresh
+                    </button>
+                    <button class="btn btn-secondary btn-small" id="settingsBtn">
+                        <span class="btn-icon">⚙️</span>
+                        Settings
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filling State -->
+            <div id="fillingState" class="state-container" style="display: none;">
+                <div class="filling-animation">
+                    <div class="filling-circle">
+                        <div class="filling-progress" id="fillingProgress"></div>
+                        <div class="filling-percentage" id="fillingPercentage">0%</div>
+                    </div>
+                </div>
+                <div class="state-title">Filling Form...</div>
+                <div class="state-description" id="fillingDescription">
+                    SchemeGenie is automatically filling the form fields
+                </div>
+                
+                <div class="filling-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Form:</span>
+                        <span class="detail-value" id="currentFormName">-</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Progress:</span>
+                        <span class="detail-value" id="fillingProgressText">0/0 fields</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Status:</span>
+                        <span class="detail-value" id="fillingStatus">Starting...</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-danger btn-small" id="stopFillingBtn">
+                    <span class="btn-icon">⏹️</span>
+                    Stop Filling
+                </button>
+            </div>
+
+            <!-- Success State -->
+            <div id="successState" class="state-container" style="display: none;">
+                <div class="state-icon">✅</div>
+                <div class="state-title">Form Filled Successfully!</div>
+                <div class="state-description" id="successDescription">
+                    All form fields have been filled with your SchemeGenie profile data.
+                </div>
+                <button class="btn btn-primary" id="fillAnotherBtn">
+                    <span class="btn-icon">📝</span>
+                    Fill Another Form
+                </button>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="state-container" style="display: none;">
+                <div class="state-icon">❌</div>
+                <div class="state-title">Error Occurred</div>
+                <div class="state-description" id="errorDescription">
+                    Something went wrong while filling the form.
+                </div>
+                <button class="btn btn-primary" id="retryBtn">
+                    <span class="btn-icon">🔄</span>
+                    Try Again
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-links">
+                <a href="#" class="footer-link" id="helpLink">Help</a>
+                <a href="#" class="footer-link" id="feedbackLink">Feedback</a>
+            </div>
+            <div class="footer-version">v1.0.0</div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>

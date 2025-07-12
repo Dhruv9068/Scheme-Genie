@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom cursor */
+* {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23f97316" opacity="0.8"/><circle cx="10" cy="10" r="3" fill="white"/></svg>'), auto;
+}
+
+button, a, [role="button"] {
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23ea580c" opacity="0.9"/><circle cx="10" cy="10" r="3" fill="white"/></svg>'), pointer;
+}
+
+/* Grid hover effect */
+.grid-hover-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.grid-hover-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(249, 115, 22, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249, 115, 22, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.grid-hover-effect:hover::before {
+  opacity: 1;
+  animation: gridShine 2s ease-in-out infinite;
+}
+
+@keyframes gridShine {
+  0%, 100% { 
+    background-image: 
+      linear-gradient(rgba(249, 115, 22, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(249, 115, 22, 0.1) 1px, transparent 1px);
+  }
+  50% { 
+    background-image: 
+      linear-gradient(rgba(249, 115, 22, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(249, 115, 22, 0.3) 1px, transparent 1px);
+  }
+}
+
+/* Card hover effects */
+.card-hover-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-hover-shine::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(249, 115, 22, 0.1),
+    transparent
+  );
+  transform: translateX(-100%) translateY(-100%) rotate(45deg);
+  transition: transform 0.6s ease;
+}
+
+.card-hover-shine:hover::after {
+  transform: translateX(100%) translateY(100%) rotate(45deg);
+}
+
+/* Dropdown z-index fix */
+.dropdown-container {
+  position: relative;
+  z-index: 9999;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 9999;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 2px solid #fed7aa;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  max-height: 320px;
+  overflow-y: auto;
+  backdrop-filter: blur(8px);
+}
+
+/* Ensure dropdown appears above other elements */
+.scheme-selector-container {
+  position: relative;
+  z-index: 50;
+}
+
+.scheme-selector-container .dropdown-menu {
+  z-index: 9999;
+}

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchemeGenie Extension Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .demo-content {
+            padding: 40px;
+        }
+
+        .demo-section {
+            margin-bottom: 40px;
+        }
+
+        .demo-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .forms-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .form-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .form-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #f97316;
+        }
+
+        .form-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .form-status {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .status-ready {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .form-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .demo-btn {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(249, 115, 22, 0.3);
+        }
+
+        .instructions {
+            background: #fef7ed;
+            border: 2px solid #fed7aa;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .instructions h3 {
+            color: #ea580c;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .instructions ol {
+            color: #9a3412;
+            padding-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .extension-preview {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .extension-popup {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            width: 380px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .popup-header {
+            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            color: white;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .popup-content {
+            padding: 20px;
+        }
+
+        .popup-form-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f9fafb;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .popup-form-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .popup-form-status {
+            font-size: 12px;
+            color: #10b981;
+        }
+
+        .popup-fill-btn {
+            background: #f97316;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .forms-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .demo-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🧞‍♂️ SchemeGenie Extension Demo</h1>
+            <p>Experience AI-powered form filling in action</p>
+        </div>
+
+        <div class="demo-content">
+            <div class="instructions">
+                <h3>🎯 How to Test the Extension</h3>
+                <ol>
+                    <li><strong>Install Extension:</strong> Load the extension folder in Chrome (chrome://extensions/)</li>
+                    <li><strong>Click Extension Icon:</strong> You'll see the SchemeGenie popup with ready forms</li>
+                    <li><strong>Open Demo Form:</strong> Click on any form below to open it</li>
+                    <li><strong>Auto-Fill:</strong> Click the extension → Select form → Click "Fill" button</li>
+                    <li><strong>Watch Magic:</strong> Form fields will be filled automatically with demo data</li>
+                </ol>
+            </div>
+
+            <div class="demo-section">
+                <h2 class="demo-title">📋 Ready to Fill Forms</h2>
+                
+                <div class="forms-grid">
+                    <div class="form-card" onclick="openForm('nmms')">
+                        <div class="form-icon">🎓</div>
+                        <div class="form-title">National Means-cum-Merit Scholarship</div>
+                        <div class="form-status status-ready">100% complete • Ready to use</div>
+                        <div class="form-description">
+                            Merit-based scholarship for economically disadvantaged students in classes 9-12. 
+                            Amount: ₹12,000 per year.
+                        </div>
+                        <button class="demo-btn">
+                            ✨ Open NMMS Form
+                        </button>
+                    </div>
+
+                    <div class="form-card" onclick="openForm('pmrf')">
+                        <div class="form-icon">🔬</div>
+                        <div class="form-title">Prime Minister Research Fellowship</div>
+                        <div class="form-status status-pending">95% complete • Ready to use</div>
+                        <div class="form-description">
+                            Fellowship for Ph.D. programs at premier institutes like IISc, IITs, IISERs. 
+                            Amount: ₹70,000-80,000/month.
+                        </div>
+                        <button class="demo-btn">
+                            ✨ Open PMRF Form
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="extension-preview">
+                <h3 style="text-align: center; margin-bottom: 20px; color: #333;">Extension Popup Preview</h3>
+                
+                <div class="extension-popup">
+                    <div class="popup-header">
+                        <h4>SchemeGenie Auto Filler</h4>
+                        <p style="font-size: 12px; opacity: 0.9;">Connected • 2 forms ready</p>
+                    </div>
+                    
+                    <div class="popup-content">
+                        <h5 style="margin-bottom: 15px; color: #333;">📋 Ready to Fill</h5>
+                        
+                        <div class="popup-form-item">
+                            <div>
+                                <div class="popup-form-name">NMMS Scholarship</div>
+                                <div class="popup-form-status">100% complete • Ready to use</div>
+                            </div>
+                            <button class="popup-fill-btn">✨ Fill</button>
+                        </div>
+                        
+                        <div class="popup-form-item">
+                            <div>
+                                <div class="popup-form-name">PMRF Fellowship</div>
+                                <div class="popup-form-status">95% complete • Ready to use</div>
+                            </div>
+                            <button class="popup-fill-btn">✨ Fill</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <h3 style="color: #333; margin-bottom: 15px;">🚀 Quick Demo Links</h3>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <a href="/nmms-form.html" target="_blank" class="demo-btn">
+                        📚 NMMS Form Demo
+                    </a>
+                    <a href="/pmrf-form.html" target="_blank" class="demo-btn">
+                        🔬 PMRF Form Demo
+                    </a>
+                    <a href="/demo-form.html" target="_blank" class="demo-btn">
+                        📝 General Demo Form
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openForm(type) {
+            if (type === 'nmms') {
+                window.open('/nmms-form.html', '_blank');
+            } else if (type === 'pmrf') {
+                window.open('/pmrf-form.html', '_blank');
+            }
+        }
+
+        // Show instructions on page load
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                alert('🎬 Extension Demo Ready!\n\n' +
+                      '1. Install the extension from the /extension folder\n' +
+                      '2. Click any form below to open it\n' +
+                      '3. Use the extension to auto-fill the form\n\n' +
+                      'Demo data is pre-loaded for testing!');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

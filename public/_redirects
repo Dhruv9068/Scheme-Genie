@@ -1,0 +1,16 @@
+# Netlify redirects for React Router
+# Handle client-side routing
+
+# API routes (if any)
+/api/*  /api/:splat  200
+
+# Static files - serve directly
+/demo-form.html  /demo-form.html  200
+/nmms-form.html  /nmms-form.html  200
+/pmrf-form.html  /pmrf-form.html  200
+/extension-demo.html  /extension-demo.html  200
+/Logo.png  /Logo.png  200
+/vite.svg  /vite.svg  200
+
+# All other routes should serve the main index.html for React Router
+/*  /index.html  200
