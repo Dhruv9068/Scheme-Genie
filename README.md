@@ -152,16 +152,18 @@ VITE_EMAILJS_PUBLIC_KEY=your_emailjs_public_key
 
 ```mermaid
 graph TD
-  User[User Interface (React + TS)] --> Auth[Firebase Auth]
-  User --> Voice[Voice Input (Web Speech API)]
-  User --> Ext[Chrome Extension]
-  Auth --> DB[Firestore Database]
-  User --> AI[Gemini/OpenRouter]
-  AI --> Logic[Scheme Matching Engine]
-  Logic --> DB
-  Ext --> Form[Auto-fill Engine]
-  Form --> Logic
-...
+    A[User Interface<br>(React + TypeScript)] --> B[Firebase Authentication]
+    A --> C[Voice Input<br>(Web Speech API)]
+    A --> D[Chrome Extension<br>(Form Auto-Fill)]
+
+    B --> E[Firestore Database<br>(Real-time Storage)]
+    A --> F[AI Engine<br>(Gemini / OpenRouter)]
+    F --> G[Scheme Matching Logic<br>AI Layer]
+    G --> E
+
+    D --> H[Auto-Fill Engine<br>(Content Scripts)]
+    H --> G
+```
 
 ## 🔧 Chrome Extension Demo
 
@@ -340,18 +342,24 @@ open https://nmms-form.netlify.app/
 
 ---
 
-### **Team Structure**
+## 🧠 Team Structure
 
 ```mermaid
-graph TD
-  A[SchemeGenie Team] --> B[Dhruv Chaturvedi - Full Stack + AI]
-  A --> C[Garima - Frontend + UI/UX]
-  A --> D[Kushboo - UI/UX + Research]
+graph LR
+    A[Dhruv Chaturvedi<br>Team Leader<br>Full Stack + AI] --> B[Frontend Team]
+    A --> C[Backend Team]
+    A --> D[AI/ML Team]
+    
+    B --> F[React Developers]
+    B --> G[Garima<br>UI/UX Designer]
 
-  B --> B1[React, Firebase, Gemini AI + Open Router (Deepseek)]
-  C --> C1[Frontend, Figma,canva, Tailwind]
-  D --> D1[User Research, Wireframing, Visly AI, Excalidraw]
-...
+    C --> H[Firebase Specialists]
+    C --> I[API Developers]
+
+    D --> J[Dhruv Chaturvedi<br>AI Engineer]
+    D --> K[Kushboo<br>Research + Wireframing + UI/UX]
+
+```
 
 
 
