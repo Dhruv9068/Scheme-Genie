@@ -1,4 +1,4 @@
-// SchemeGenie Extension Background Script
+// SchemeGenie Extension Background Script with AI Support
 class SchemeGenieBackground {
     constructor() {
         this.init();
@@ -48,7 +48,7 @@ class SchemeGenieBackground {
     }
 
     async handleFirstInstall() {
-        // Set default demo data
+        // Set default demo data with enhanced information
         await chrome.storage.local.set({
             schemeGenieUser: {
                 fullName: 'John Demo Student',
@@ -73,22 +73,47 @@ class SchemeGenieBackground {
                 institute: 'Demo Institute of Technology',
                 degree: 'B.Tech',
                 cgpa: '9.2',
-                proposalTitle: 'AI-based Research Proposal',
-                summary: 'Research proposal summary will be provided separately.'
+                proposalTitle: 'AI-based Research Proposal for Smart Agriculture',
+                summary: 'This research proposal focuses on developing AI-powered solutions for precision agriculture, including crop monitoring, yield prediction, and automated irrigation systems using machine learning algorithms and IoT sensors.'
             }
         });
     }
 
     async handleTabUpdate(tabId, tab) {
-        // Update badge to show extension is active
-        await chrome.action.setBadgeText({
-            tabId,
-            text: '✓'
-        });
+        // Check if it's a form page
+        if (this.isFormPage(tab.url)) {
+            // Update badge to show extension is active
+            await chrome.action.setBadgeText({
+                tabId,
+                text: '✓'
+            });
+            
+            await chrome.action.setBadgeBackgroundColor({
+                color: '#f97316'
+            });
+        } else {
+            // Clear badge for non-form pages
+            await chrome.action.setBadgeText({
+                tabId,
+                text: ''
+            });
+        }
+    }
+
+    isFormPage(url) {
+        if (!url) return false;
         
-        await chrome.action.setBadgeBackgroundColor({
-            color: '#f97316'
-        });
+        const formPatterns = [
+            'nmms-form.netlify.app',
+            'pmrf-form.netlify.app',
+            '127.0.0.1:5500',
+            'localhost',
+            '.gov',
+            '.gov.in',
+            'scholarships.gov.in'
+        ];
+        
+        return formPatterns.some(pattern => url.includes(pattern));
     }
 
     async getUserData() {
@@ -154,8 +179,8 @@ class SchemeGenieBackground {
                         institute: 'Demo Institute of Technology',
                         degree: 'B.Tech',
                         cgpa: '9.2',
-                        proposalTitle: 'AI-based Research Proposal',
-                        summary: 'Research proposal summary will be provided separately.'
+                        proposalTitle: 'AI-based Research Proposal for Smart Agriculture',
+                        summary: 'This research proposal focuses on developing AI-powered solutions for precision agriculture, including crop monitoring, yield prediction, and automated irrigation systems using machine learning algorithms and IoT sensors.'
                     }
                 }
             ];

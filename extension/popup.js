@@ -1,4 +1,4 @@
-// SchemeGenie Popup Script
+// SchemeGenie Popup Script with AI Assistant
 class SchemeGeniePopup {
     constructor() {
         this.currentState = 'loading';
@@ -7,6 +7,9 @@ class SchemeGeniePopup {
         this.fillingProgress = 0;
         this.totalFields = 0;
         this.filledFields = 0;
+        this.currentTabIndex = 0; // 0 = Forms, 1 = AI
+        this.chatHistory = [];
+        this.apiKey = 'enter your api key here';
         
         this.init();
     }
@@ -19,6 +22,8 @@ class SchemeGeniePopup {
         
         // Setup event listeners
         this.setupEventListeners();
+        this.setupTabNavigation();
+        this.setupAIAssistant();
         
         // Check connection and load data
         await this.checkConnectionAndLoadData();
@@ -92,6 +97,170 @@ class SchemeGeniePopup {
                 this.openFeedback();
             });
         }
+    }
+
+    setupTabNavigation() {
+        const formsTab = document.getElementById('formsTab');
+        const aiTab = document.getElementById('aiTab');
+        const formsContent = document.getElementById('formsTabContent');
+        const aiContent = document.getElementById('aiTabContent');
+
+        formsTab.addEventListener('click', () => {
+            this.switchTab(0);
+        });
+
+        aiTab.addEventListener('click', () => {
+            this.switchTab(1);
+        });
+    }
+
+    switchTab(tabIndex) {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const contents = document.querySelectorAll('.tab-content');
+
+        // Remove active class from all tabs and contents
+        tabs.forEach(tab => tab.classList.remove('active'));
+        contents.forEach(content => content.classList.remove('active'));
+
+        // Add active class to selected tab and content
+        tabs[tabIndex].classList.add('active');
+        contents[tabIndex].classList.add('active');
+
+        this.currentTabIndex = tabIndex;
+    }
+
+    setupAIAssistant() {
+        const aiInput = document.getElementById('aiInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const quickBtns = document.querySelectorAll('.quick-btn');
+
+        // Send button click
+        sendBtn.addEventListener('click', () => {
+            this.sendAIMessage();
+        });
+
+        // Enter key press
+        aiInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                this.sendAIMessage();
+            }
+        });
+
+        // Quick question buttons
+        quickBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const question = btn.getAttribute('data-question');
+                aiInput.value = question;
+                this.sendAIMessage();
+            });
+        });
+    }
+
+    async sendAIMessage() {
+        const aiInput = document.getElementById('aiInput');
+        const message = aiInput.value.trim();
+        
+        if (!message) return;
+
+        // Clear input and disable send button
+        aiInput.value = '';
+        const sendBtn = document.getElementById('sendBtn');
+        sendBtn.disabled = true;
+
+        // Add user message to chat
+        this.addMessageToChat(message, 'user');
+
+        // Show loading
+        this.showAILoading(true);
+
+        try {
+            // Call OpenRouter API
+            const response = await this.callOpenRouterAPI(message);
+            
+            // Add AI response to chat
+            this.addMessageToChat(response, 'ai');
+            
+        } catch (error) {
+            console.error('AI API Error:', error);
+            this.addMessageToChat('Sorry, I encountered an error. Please try again later.', 'ai');
+        } finally {
+            // Hide loading and re-enable send button
+            this.showAILoading(false);
+            sendBtn.disabled = false;
+            aiInput.focus();
+        }
+    }
+
+    async callOpenRouterAPI(userMessage) {
+        const systemPrompt = `You are an AI assistant specialized in helping users with Indian government scholarship and benefit application forms. You should:
+
+1. Provide accurate information about government schemes like NMMS, PMRF, scholarships, and benefits
+2. Help users understand form requirements, eligibility criteria, and documentation
+3. Explain complex terms and procedures in simple language
+4. Focus only on form-related queries and government schemes
+5. Keep responses concise and helpful (max 150 words)
+6. If asked about non-form related topics, politely redirect to form assistance
+
+Current context: User is filling government application forms and needs help understanding requirements.`;
+
+        const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${this.apiKey}`,
+                "HTTP-Referer": "chrome-extension://schemegenie",
+                "X-Title": "SchemeGenie Extension",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "model": "google/gemma-2-9b-it:free",
+                "messages": [
+                    {
+                        "role": "system",
+                        "content": systemPrompt
+                    },
+                    {
+                        "role": "user",
+                        "content": userMessage
+                    }
+                ],
+                "max_tokens": 200,
+                "temperature": 0.7
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.choices[0].message.content;
+    }
+
+    addMessageToChat(message, sender) {
+        const chatContainer = document.getElementById('chatContainer');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}-message`;
+        
+        const avatar = sender === 'ai' ? '🤖' : '👤';
+        
+        messageDiv.innerHTML = `
+            <div class="message-avatar">${avatar}</div>
+            <div class="message-content">
+                <div class="message-text">${message}</div>
+            </div>
+        `;
+        
+        chatContainer.appendChild(messageDiv);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        
+        // Store in chat history
+        this.chatHistory.push({ message, sender, timestamp: Date.now() });
+    }
+
+    showAILoading(show) {
+        const loadingDiv = document.getElementById('aiLoading');
+        loadingDiv.style.display = show ? 'flex' : 'none';
     }
 
     async getCurrentTab() {

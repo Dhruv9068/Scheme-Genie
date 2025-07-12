@@ -1,16 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "SchemeGenie - Auto Form Filler",
+  "name": "SchemeGenie - Auto Form Filler with AI Assistant",
   "version": "1.0.0",
-  "description": "Automatically fill government benefit application forms with your saved SchemeGenie profile data",
+  "description": "Automatically fill government benefit application forms with AI-powered assistance",
   "permissions": [
     "activeTab",
     "storage",
     "scripting"
   ],
   "host_permissions": [
-    "http://*/*",
-    "https://*/*"
+    "<all_urls>"
   ],
   "background": {
     "service_worker": "background.js"
@@ -25,7 +24,7 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "SchemeGenie Auto Filler"
+    "default_title": "SchemeGenie Auto Filler with AI"
   },
   "icons": {
     "16": "logo.png",
